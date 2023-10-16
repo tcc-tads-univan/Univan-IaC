@@ -55,13 +55,13 @@ static void CreateHistoryMicroservice(string msHistoryImage, Docker.Network netw
       Ports = new InputList<Docker.Inputs.ContainerPortArgs> {
          new Docker.Inputs.ContainerPortArgs
          {
-            Internal = 5003,
+            Internal = 80,
             External = 5003
          }
       },
       Envs = new InputList<string> {
-         $"RABBIT_HOST=rabbit-service",
-         $"RABBIT_PORT=5672"
+         $"ConnectionStrings__HistoryDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=history;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+         $"ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672"
       },
       NetworksAdvanced = new InputList<Docker.Inputs.ContainerNetworksAdvancedArgs> {
          new Docker.Inputs.ContainerNetworksAdvancedArgs
