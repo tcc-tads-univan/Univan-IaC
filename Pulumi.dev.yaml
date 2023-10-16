@@ -1,4 +1,7 @@
 config:
+  docker:host: npipe:////.//pipe//docker_engine
+  univan:dbPassword:
+    secure: AAABAKr02UWyXoHuwSL/oLcd3VKHsFhDbUJV8EEfJaJF05CYCwMqjJw2hw==
+  univan:dbUser: tccunivan
   univan:ms-history-image: univan/history:1.0
   univan:rabbitMQ-image: rabbitmq:3.9-management
-  docker:host: npipe:////.//pipe//docker_engine
