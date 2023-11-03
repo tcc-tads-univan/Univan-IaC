@@ -1,7 +1,16 @@
 config:
   docker:host: npipe:////.//pipe//docker_engine
+  univan:blobPassword:
+    secure: AAABAIc6XVa/9QZCKqQflC4yUqrc8r4x51NW/5Jjq6AmSks6uWkTh6M3rLy9YfRzSlmXxq1OTo2QD1uMTcpxD1daSGX7Fcz1LFw/OOJaVW5sfIq+DjYpuLy25rP0MwhWPXIPmJnOekguifjndAlrXDvPmWG9geL5
   univan:dbPassword:
     secure: AAABAKr02UWyXoHuwSL/oLcd3VKHsFhDbUJV8EEfJaJF05CYCwMqjJw2hw==
   univan:dbUser: tccunivan
-  univan:ms-history-image: univan/history:1.0
+  univan:emailKey:
+    secure: AAABAArGhByn9PnLp/lY2jTxM2zib6z1z/wdV0J+5iXe9R8XkMCLXAVBuV8iXeeRsIVHy5bwTEXth9bKjpC6cjdZfGXtMqJKlSH5+AlbQGkPSRLhw11AoynkrWoQpcerGOjSdik=
+  univan:ms-carpool-image: univandockerimages.azurecr.io/univan/carpool:1.0
+  univan:ms-history-image: univandockerimages.azurecr.io/univan/history:1.0
+  univan:ms-notification-image: univandockerimages.azurecr.io/univan/notification:1.0
+  univan:ms-univan-image: univandockerimages.azurecr.io/univan/univan:1.0
   univan:rabbitMQ-image: rabbitmq:3.9-management
+  univan:redisPassword:
+    secure: AAABAIrclDj5Tcabe2OpFMqN+3sGpFaEFXGS8lEkVn/kvqgrrL0RKtNzirxAnTuOpFaX5xsPS5hcOURoWaS+vOKtTrRXi5LDLk9+BQ==
