@@ -15,7 +15,7 @@ services:
     container_name: historyService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
-      - ConnectionStrings__HistoryDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=history;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - ConnectionStrings__HistoryDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=history;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
     ports: 
       - "5003:80"
     depends_on:
@@ -26,8 +26,8 @@ services:
     container_name: notificationService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
-      - ConnectionStrings__NotificationDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=notification;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-      - EmailSettings__ApiKey={emailKey}
+      - ConnectionStrings__NotificationDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=notification;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - EmailSettings__ApiKey=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
     ports: 
       - "5002:80"
     depends_on:
@@ -38,8 +38,8 @@ services:
     container_name: univanService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
-      - ConnectionStrings__UnivanDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=univan;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-      - BlobSettings__ConnectionString=DefaultEndpointsProtocol=https;AccountName=tccunivan;AccountKey={BlobPassword};EndpointSuffix=core.windows.net
+      - ConnectionStrings__UnivanDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=univan;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - BlobSettings__ConnectionString=DefaultEndpointsProtocol=https;AccountName=tccunivan;AccountKey=qMdUYW616zG+e1AWdCUEmpJK48sPfz6xpb+UJ9EnHyMVHIoYEEbdxzFchBWi9Z3QNR/de6+ZQua1+AStKW9u0g==;EndpointSuffix=core.windows.net
     ports: 
       - "5000:80"
     depends_on:
@@ -50,14 +50,54 @@ services:
     container_name: carpool
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
-      - ConnectionStrings__CarpoolDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=carpool-service;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-      - ConnectionStrings__Redis=tccunivan.redis.cache.windows.net:6380,password={redisPassword},ssl=True,abortConnect=False
+      - ConnectionStrings__CarpoolDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=carpool-service;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - ConnectionStrings__Redis=tccunivan.redis.cache.windows.net:6380,password=jEBBOe6xnJItJPdBkjnb83yPLo3o7Mwu4AzCaLhjf68=,ssl=True,abortConnect=False
       - UnivanService__Url=http://univanService/api/
     ports: 
       - "5001:80"
     depends_on:
       - rabbitmq
-  
+
+  routes-db:
+    image: postgres:latest
+    container_name: routesDatabase
+    environment:
+      - POSTGRES_USER=routes
+      - POSTGRES_PASSWORD=routes123
+      - POSTGRES_DB=routesdb
+    ports:
+      - "5432:5432"
+
+  routes-ms:
+    image: univandockerimages.azurecr.io/univan/routes:latest
+    container_name: routes
+    environment:
+      - SERVER_PORT=80
+      - MAPS_KEY=AIzaSyBxE3WWoAjcEUk4ttI1La96XO_JeWzXdM4
+      - LISTENER_QUEUE=routes.listener.queue
+      - DATABASE_URL=jdbc:postgresql://routesDatabase:5432/routesdb
+      - DATABASE_USER=routes
+      - DATABASE_PASSWORD=routes123
+      - RABBIT_HOST=rabbit-service
+    ports:
+      - "5004:80"
+    depends_on:
+      - rabbitmq
+      - routes-db
+
+  api-gateway:
+    image: univandockerimages.azurecr.io/univan/gateway:latest
+    container_name: gateway
+    environment:
+      - SERVER_PORT=80
+      - JWT_SECRET=jwtsecretunivantokenkeygenerator
+      - FRONTEND_URL=http://localhost:4200
+      - UNIVAN_URL=http://univanService:5000
+      - CARPOOL_URL=http://carpool:5001
+      - HISTORY_URL=http://historyService:5003
+      - ROUTES_URL=http://routes:5004
+    ports:
+      - "8080:80"
 
 networks:
   default:
