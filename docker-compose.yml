@@ -1,0 +1,64 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: rabbit-service
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  history-ms:
+    image: univandockerimages.azurecr.io/univan/history:1.0
+    container_name: historyService
+    environment:
+      - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
+      - ConnectionStrings__HistoryDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=history;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+    ports: 
+      - "5003:80"
+    depends_on:
+      - rabbitmq
+
+  notification-ms:
+    image: univandockerimages.azurecr.io/univan/notification:1.1
+    container_name: notificationService
+    environment:
+      - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
+      - ConnectionStrings__NotificationDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=notification;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - EmailSettings__ApiKey={emailKey}
+    ports: 
+      - "5002:80"
+    depends_on:
+      - rabbitmq
+
+  univan-ms:
+    image: univandockerimages.azurecr.io/univan/univan:1.1
+    container_name: univanService
+    environment:
+      - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
+      - ConnectionStrings__UnivanDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=univan;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - BlobSettings__ConnectionString=DefaultEndpointsProtocol=https;AccountName=tccunivan;AccountKey={BlobPassword};EndpointSuffix=core.windows.net
+    ports: 
+      - "5000:80"
+    depends_on:
+      - rabbitmq
+
+  carpool-ms:
+    image: univandockerimages.azurecr.io/univan/carpool:1.1
+    container_name: carpool
+    environment:
+      - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
+      - ConnectionStrings__CarpoolDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=carpool-service;Persist Security Info=False;User ID=tccunivan;Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - ConnectionStrings__Redis=tccunivan.redis.cache.windows.net:6380,password={redisPassword},ssl=True,abortConnect=False
+      - UnivanService__Url=http://univanService/api/
+    ports: 
+      - "5001:80"
+    depends_on:
+      - rabbitmq
+  
+
+networks:
+  default:
+    driver: bridge
