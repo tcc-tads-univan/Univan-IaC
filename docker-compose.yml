@@ -92,10 +92,10 @@ services:
       - SERVER_PORT=80
       - JWT_SECRET=jwtsecretunivantokenkeygenerator
       - FRONTEND_URL=http://localhost:4200
-      - UNIVAN_URL=http://univanService:5000
-      - CARPOOL_URL=http://carpool:5001
-      - HISTORY_URL=http://historyService:5003
-      - ROUTES_URL=http://routes:5004
+      - UNIVAN_URL=http://univanService:80
+      - CARPOOL_URL=http://carpool:80
+      - HISTORY_URL=http://historyService:80
+      - ROUTES_URL=http://routes:80
     ports:
       - "8080:80"
 
