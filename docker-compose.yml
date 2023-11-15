@@ -11,7 +11,7 @@ services:
       - "15672:15672"
 
   history-ms:
-    image: univandockerimages.azurecr.io/univan/history:1.0
+    image: univandockerimages.azurecr.io/univan/history:1.1
     container_name: historyService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
@@ -34,7 +34,7 @@ services:
       - rabbitmq
 
   univan-ms:
-    image: univandockerimages.azurecr.io/univan/univan:1.1
+    image: univandockerimages.azurecr.io/univan/univan:1.2
     container_name: univanService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
@@ -46,7 +46,7 @@ services:
       - rabbitmq
 
   carpool-ms:
-    image: univandockerimages.azurecr.io/univan/carpool:1.1
+    image: univandockerimages.azurecr.io/univan/carpool:1.4
     container_name: carpool
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
