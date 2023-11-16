@@ -68,7 +68,7 @@ services:
       - DATABASE_URL=jdbc:sqlserver://tccunivanfinal.database.windows.net:1433;database=routes;user=tccunivan@tccunivanfinal;password=Project!123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
       - DATABASE_DIALECT=org.hibernate.dialect.SQLServerDialect
       - DATABASE_DRIVER=com.microsoft.sqlserver.jdbc.SQLServerDriver
-      - DDL_AUTO=create
+      - DDL_AUTO=update
       - RABBIT_HOST=rabbit-service
     ports:
       - "5004:80"
