@@ -22,7 +22,7 @@ services:
       - rabbitmq
 
   notification-ms:
-    image: univandockerimages.azurecr.io/univan/notification:1.1
+    image: univandockerimages.azurecr.io/univan/notification:1.2
     container_name: notificationService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
