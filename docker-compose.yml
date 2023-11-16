@@ -34,7 +34,7 @@ services:
       - rabbitmq
 
   univan-ms:
-    image: univandockerimages.azurecr.io/univan/univan:1.2
+    image: univandockerimages.azurecr.io/univan/univan:1.3
     container_name: univanService
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
