@@ -27,7 +27,7 @@ services:
     environment:
       - ConnectionStrings__RabbitMq=amqp://guest:guest@rabbit-service:5672
       - ConnectionStrings__NotificationDatabase=Server=tcp:tccunivanfinal.database.windows.net,1433;Initial Catalog=notification;Persist Security Info=False;User ID=tccunivan;Password=Project!123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-      - EmailSettings__ApiKey=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
+      - EmailSettings__ApiKey=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
     ports: 
       - "5002:80"
     depends_on:
