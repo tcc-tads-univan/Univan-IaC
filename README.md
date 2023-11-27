@@ -18,11 +18,11 @@ Isso criará uma cópia local do repositório no seu sistema.
 
 ## Configuração
 
-    Navegue até o diretório do projeto:
+Navegue até o diretório do projeto:
 ```
 cd Univan-IaC
 ```
-    Se necessário, ajuste as configurações no arquivo docker-compose.yml conforme necessário para o seu ambiente.
+Se necessário, ajuste as configurações no arquivo docker-compose.yml conforme necessário para o seu ambiente.
 
 ## Inicializando o Projeto
 
