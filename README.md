@@ -51,7 +51,7 @@ Após iniciar o projeto, você pode acessar o swagger em:
 Univan-van: http://localhost:5000
 Carpool-ms: http://localhost:5001
 History-ms: http://localhost:5003
-Routes-ms:  http://localhost:5004
+Routes-ms:  http://localhost:5004/swagger-ui/index.html
 ```
 ### Espero que este guia seja útil! Se você tiver algum problema ou dúvida, sinta-se à vontade para abrir uma issue neste repositório.
 
