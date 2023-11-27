@@ -10,7 +10,7 @@ Antes de começar, certifique-se de ter o Docker e o Docker Compose instalados n
 
 Para começar, clone este repositório usando o seguinte comando:
 
-``
+``` 
 git clone git@github.com:tcc-tads-univan/Univan-IaC.git
 ```
 
