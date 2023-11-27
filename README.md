@@ -1,6 +1,6 @@
 # Guia de Uso do Docker Compose para o Projeto Univan-IaC
 
-Este repositório contém o código-fonte e a configuração necessária para executar o projeto Univan-IaC usando Docker Compose.
+Este repositório contém o código-fonte e a configuração necessária para executar todos os serviços do projeto Univan usando Docker Compose.
 
 ## Pré-requisitos
 
@@ -12,16 +12,16 @@ Para começar, clone este repositório usando o seguinte comando:
 
 ```bash
 git clone git@github.com:tcc-tads-univan/Univan-IaC.git
+```
 
 Isso criará uma cópia local do repositório no seu sistema.
 
-Configuração
+## Configuração
 
     Navegue até o diretório do projeto:
+    ```bash
+cd Univan-IaC
 
-```bash
-    cd Univan-IaC
-```
     Se necessário, ajuste as configurações no arquivo docker-compose.yml conforme necessário para o seu ambiente.
 
 ## Inicializando o Projeto
@@ -30,17 +30,18 @@ Agora, você está pronto para iniciar o projeto usando o Docker Compose. Execut
 
 ```bash
 docker-compose up -d
-
+```
 Isso iniciará os contêineres conforme especificado no arquivo docker-compose.yml. Os contêineres serão iniciados em segundo plano (modo detached).
-Parando o Projeto
+
+## Parando o Projeto
 
 Se você precisar parar os contêineres, execute:
 
 ```bash
 docker-compose down
-
-Isso encerrará os contêineres e removerá os recursos associados.
 ```
+Isso encerrará os contêineres e removerá os recursos associados.
+
 
 ## Acesso ao Aplicativo
 
