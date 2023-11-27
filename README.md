@@ -19,9 +19,9 @@ Isso criará uma cópia local do repositório no seu sistema.
 ## Configuração
 
     Navegue até o diretório do projeto:
-    ```bash
+```
 cd Univan-IaC
-
+```
     Se necessário, ajuste as configurações no arquivo docker-compose.yml conforme necessário para o seu ambiente.
 
 ## Inicializando o Projeto
@@ -48,9 +48,9 @@ Isso encerrará os contêineres e removerá os recursos associados.
 Após iniciar o projeto, você pode acessar o swagger em: 
 
 ```bash
-Univan-van: http://localhost:5000
-Carpool-ms: http://localhost:5001
-History-ms: http://localhost:5003
+Univan-van: http://localhost:5000/swagger/index.html
+Carpool-ms: http://localhost:5001/swagger/index.html
+History-ms: http://localhost:5003/swagger/index.html
 Routes-ms:  http://localhost:5004/swagger-ui/index.html
 ```
 ### Espero que este guia seja útil! Se você tiver algum problema ou dúvida, sinta-se à vontade para abrir uma issue neste repositório.
